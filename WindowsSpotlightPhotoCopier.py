@@ -16,10 +16,10 @@ import os.path
 import fnmatch
 import shutil
 
-import cv2
+#import cv2
 
-source_dir=os.path.join(os.environ['LOCALAPPDATA'], 'Packages\\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\\LocalState\\Assets')
-destination_dir=os.path.join(os.environ['USERPROFILE'], 'Desktop\\Windows Spotlight Photos')
+source_dir=os.path.join(os.environ['LOCALAPPDATA'], 'Packages', 'Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy', 'LocalState', 'Assets', '')
+destination_dir=os.path.join(os.environ['USERPROFILE'], 'Desktop', 'Windows Spotlight Photos', '')
 
 
 if not os.path.exists(destination_dir):
