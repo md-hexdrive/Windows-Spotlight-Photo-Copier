@@ -17,9 +17,29 @@ import fnmatch
 import shutil
 
 #import cv2
+import setup
+import load_config
+default_source_dir=os.path.join(os.environ['LOCALAPPDATA'], 'Packages', 'Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy', 'LocalState', 'Assets', '')
+default_destination_dir=os.path.join(os.environ['USERPROFILE'], 'Desktop', 'Windows Spotlight Photos', '')
 
-source_dir=os.path.join(os.environ['LOCALAPPDATA'], 'Packages', 'Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy', 'LocalState', 'Assets', '')
-destination_dir=os.path.join(os.environ['USERPROFILE'], 'Desktop', 'Windows Spotlight Photos', '')
+config_options = load_config.import_options("config.json")
+
+if config_options['output_dir'] == "--default":
+    destination_dir = default_destination_dir
+elif config_options['output_dir'] == "ask":
+    destination_dir = setup.ask_for_output_dir()
+else:
+    destination_dir = config_options['output_dir']
+
+if config_options['input_dir'] == "--default":
+    source_dir = default_source_dir
+elif config_options['input_dir'] == "ask":
+    source_dir = setup.ask_for_input_dir()
+else:
+    source_dir = config_options['input_dir']
+
+
+
 
 
 if not os.path.exists(destination_dir):
