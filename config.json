@@ -1,4 +1,4 @@
 {
-    "output_dir": "../",
-    "input_dir": "--default"
+    "output_dir": "--default",
+    "source_dir": "--default"
 }
