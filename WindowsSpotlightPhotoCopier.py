@@ -16,9 +16,14 @@ import os.path
 import fnmatch
 import shutil
 
-#import cv2
 import setup
 import load_config
+
+try:
+    import cv2
+    cv2_imported = True
+except:
+    cv2_imported = False
 default_source_dir=os.path.join(os.environ['LOCALAPPDATA'], 'Packages', 'Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy', 'LocalState', 'Assets', '')
 default_destination_dir=os.path.join(os.environ['USERPROFILE'], 'Desktop', 'Windows Spotlight Photos', '')
 
@@ -54,7 +59,16 @@ destination_file_list = os.listdir(destination_dir)
 #    print(var)
 #    print(os.environ[var])
 for file in source_file_list:
-    if(os.path.getsize(os.path.join(source_dir,file)) >= 200000):
-        shutil.copy2(os.path.join(source_dir, file), os.path.join(destination_dir, file+".jpg"))
+    source_file = os.path.join(source_dir,file)
+    output_file = os.path.join(destination_dir, file+".jpg")
+    
+    if(os.path.getsize(source_file) >= 200000):
+        if cv2_imported:
+            image_shape = cv2.imread(source_file).shape
+            print(image_shape)
+            if image_shape[0] <= image_shape[1]:
+                shutil.copy2(source_file, output_file)
+        else:
+            shutil.copy2(source_file, output_file)
     #print(os.path.getsize(os.path.join(source_dir,file)))
 
