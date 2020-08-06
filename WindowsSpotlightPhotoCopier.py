@@ -24,6 +24,8 @@ try:
     cv2_imported = True
 except:
     cv2_imported = False
+
+
 default_source_dir=os.path.join(os.environ['LOCALAPPDATA'], 'Packages', 'Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy', 'LocalState', 'Assets', '')
 default_destination_dir=os.path.join(os.environ['USERPROFILE'], 'Desktop', 'Windows Spotlight Photos', '')
 
