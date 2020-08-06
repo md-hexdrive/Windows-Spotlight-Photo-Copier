@@ -1,1 +1,1 @@
-python3 WindowsSpotlightPhotoCopier.py
+python WindowsSpotlightPhotoCopier.py

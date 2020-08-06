@@ -16,35 +16,10 @@ import os.path
 import fnmatch
 import shutil
 
-import setup
-import load_config
+#import cv2
 
-try:
-    import cv2
-    cv2_imported = True
-except:
-    cv2_imported = False
-default_source_dir=os.path.join(os.environ['LOCALAPPDATA'], 'Packages', 'Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy', 'LocalState', 'Assets', '')
-default_destination_dir=os.path.join(os.environ['USERPROFILE'], 'Desktop', 'Windows Spotlight Photos', '')
-
-config_options = load_config.import_options("config.json")
-
-if config_options['output_dir'] == "--default":
-    destination_dir = default_destination_dir
-elif config_options['output_dir'] == "ask":
-    destination_dir = setup.ask_for_output_dir()
-else:
-    destination_dir = config_options['output_dir']
-
-if config_options['input_dir'] == "--default":
-    source_dir = default_source_dir
-elif config_options['input_dir'] == "ask":
-    source_dir = setup.ask_for_input_dir()
-else:
-    source_dir = config_options['input_dir']
-
-
-
+source_dir=os.path.join(os.environ['LOCALAPPDATA'], 'Packages', 'Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy', 'LocalState', 'Assets', '')
+destination_dir=os.path.join(os.environ['USERPROFILE'], 'Desktop', 'Windows Spotlight Photos', '')
 
 
 if not os.path.exists(destination_dir):
@@ -59,16 +34,7 @@ destination_file_list = os.listdir(destination_dir)
 #    print(var)
 #    print(os.environ[var])
 for file in source_file_list:
-    source_file = os.path.join(source_dir,file)
-    output_file = os.path.join(destination_dir, file+".jpg")
-    
-    if(os.path.getsize(source_file) >= 200000):
-        if cv2_imported:
-            image_shape = cv2.imread(source_file).shape
-            print(image_shape)
-            if image_shape[0] <= image_shape[1]:
-                shutil.copy2(source_file, output_file)
-        else:
-            shutil.copy2(source_file, output_file)
+    if(os.path.getsize(os.path.join(source_dir,file)) >= 200000):
+        shutil.copy2(os.path.join(source_dir, file), os.path.join(destination_dir, file+".jpg"))
     #print(os.path.getsize(os.path.join(source_dir,file)))
 
