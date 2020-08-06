@@ -1,11 +1,12 @@
 import json
+import defaults
 
 def ask_question(question):
     response = input(question)
     print(response)
-    if response == "":
+    if response.strip() == "":
         print("Default")
-        response = "--default"
+        response = defaults.default_option
     return response
     
 def ask_for_output_dir():
@@ -42,7 +43,18 @@ if __name__ == '__main__':
 
     properties = {}
     properties['output_dir'] = ask_for_output_dir()
-    properties['input_dir'] = ask_for_input_dir()
+    properties['source_dir'] = ask_for_input_dir()
+    
+    create_batch, run_at_startup = can_create_batch_file()
 
     with open("config.json", 'w') as config_file:
         config_file.write(json.dumps(properties, indent=4))
+    
+    if create_batch:
+        with open("WindowsSpotlightPhotoCopier.bat", "w") as batch_file:
+            batch_file.write("python3 WindowsSpotlightPhotoCopier.py")
+    
+    print("\n\n" + "/" * 70)
+    print("Setup Complete, running program for the first time.")
+    
+    import WindowsSpotlightPhotoCopier

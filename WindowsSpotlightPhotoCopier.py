@@ -29,37 +29,26 @@ except:
 default_source_dir=os.path.join(os.environ['LOCALAPPDATA'], 'Packages', 'Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy', 'LocalState', 'Assets', '')
 default_destination_dir=os.path.join(os.environ['USERPROFILE'], 'Desktop', 'Windows Spotlight Photos', '')
 
-config_options = load_config.import_options("config.json")
+source_dir, destination_dir = load_config.import_options("config.json")
 
-if config_options['output_dir'] == "--default":
-    destination_dir = default_destination_dir
-elif config_options['output_dir'] == "ask":
+if destination_dir == "ask":
     destination_dir = setup.ask_for_output_dir()
-else:
-    destination_dir = config_options['output_dir']
-
-if config_options['input_dir'] == "--default":
-    source_dir = default_source_dir
-elif config_options['input_dir'] == "ask":
+if source_dir == "ask":
     source_dir = setup.ask_for_input_dir()
-else:
-    source_dir = config_options['input_dir']
-
-
-
 
 
 if not os.path.exists(destination_dir):
+    print(destination_dir, " doesn't exist, creating it")
     os.makedirs(destination_dir)
 
 source_file_list = os.listdir(source_dir)
 destination_file_list = os.listdir(destination_dir)
 
 
-#print(os.environ)
-#for var in os.environ:
-#    print(var)
-#    print(os.environ[var])
+# print(os.environ)
+# for var in os.environ:
+#     print(var, os.environ[var])
+#     print()
 for file in source_file_list:
     source_file = os.path.join(source_dir,file)
     output_file = os.path.join(destination_dir, file+".jpg")
