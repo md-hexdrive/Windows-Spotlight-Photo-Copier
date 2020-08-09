@@ -54,12 +54,16 @@ for file in source_file_list:
     output_file = os.path.join(destination_dir, file+".jpg")
     
     if(os.path.getsize(source_file) >= 200000):
-        if cv2_imported:
-            image_shape = cv2.imread(source_file).shape
-            print(image_shape)
-            if image_shape[0] <= image_shape[1]:
+        try:
+            if cv2_imported:
+                image_shape = cv2.imread(source_file).shape
+                print(image_shape)
+                if image_shape[0] <= image_shape[1]:
+                    shutil.copy2(source_file, output_file)
+            else:
                 shutil.copy2(source_file, output_file)
-        else:
+        except:
             shutil.copy2(source_file, output_file)
+        
     #print(os.path.getsize(os.path.join(source_dir,file)))
 
