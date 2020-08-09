@@ -52,7 +52,7 @@ if __name__ == '__main__':
     
     if create_batch:
         with open("WindowsSpotlightPhotoCopier.bat", "w") as batch_file:
-            batch_file.write("python3 WindowsSpotlightPhotoCopier.py")
+            batch_file.write("python WindowsSpotlightPhotoCopier.py")
     
     print("\n\n" + "/" * 70)
     print("Setup Complete, running program for the first time.")
